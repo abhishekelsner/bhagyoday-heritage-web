@@ -147,8 +147,7 @@ function HomePage() {
                       <span className="text-sm font-medium">{label as string}</span>
                     </li>
                   );
-                })
-                ))}
+                })}
               </ul>
             </Reveal>
             <Reveal delay={0.3}>
