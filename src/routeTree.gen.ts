@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RestaurantRouteImport } from './routes/restaurant'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BanquetHallRouteImport } from './routes/banquet-hall'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RestaurantRoute = RestaurantRouteImport.update({
   id: '/restaurant',
   path: '/restaurant',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/banquet-hall': typeof BanquetHallRoute
   '/contact': typeof ContactRoute
   '/restaurant': typeof RestaurantRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/banquet-hall': typeof BanquetHallRoute
   '/contact': typeof ContactRoute
   '/restaurant': typeof RestaurantRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,33 @@ export interface FileRoutesById {
   '/banquet-hall': typeof BanquetHallRoute
   '/contact': typeof ContactRoute
   '/restaurant': typeof RestaurantRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/banquet-hall' | '/contact' | '/restaurant'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/banquet-hall'
+    | '/contact'
+    | '/restaurant'
+    | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/banquet-hall' | '/contact' | '/restaurant'
-  id: '__root__' | '/' | '/about' | '/banquet-hall' | '/contact' | '/restaurant'
+  to:
+    | '/'
+    | '/about'
+    | '/banquet-hall'
+    | '/contact'
+    | '/restaurant'
+    | '/sitemap.xml'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/banquet-hall'
+    | '/contact'
+    | '/restaurant'
+    | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,10 +105,18 @@ export interface RootRouteChildren {
   BanquetHallRoute: typeof BanquetHallRoute
   ContactRoute: typeof ContactRoute
   RestaurantRoute: typeof RestaurantRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/restaurant': {
       id: '/restaurant'
       path: '/restaurant'
@@ -125,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   BanquetHallRoute: BanquetHallRoute,
   ContactRoute: ContactRoute,
   RestaurantRoute: RestaurantRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
