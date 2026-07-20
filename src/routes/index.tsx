@@ -139,12 +139,15 @@ function HomePage() {
                   ["Authentic Taste", Utensils],
                   ["Family Restaurant", HeartHandshake],
                   ["Fresh Ingredients", Leaf],
-                ].map(([label, Icon]) => (
-                  <li key={label as string} className="flex items-center gap-3 rounded-xl border border-border bg-card p-4">
-                    {/* @ts-expect-error dynamic */}
-                    <Icon className="h-5 w-5 text-gold" />
-                    <span className="text-sm font-medium">{label as string}</span>
-                  </li>
+                ].map(([label, Icon]) => {
+                  const I = Icon as typeof Award;
+                  return (
+                    <li key={label as string} className="flex items-center gap-3 rounded-xl border border-border bg-card p-4">
+                      <I className="h-5 w-5 text-gold" />
+                      <span className="text-sm font-medium">{label as string}</span>
+                    </li>
+                  );
+                })
                 ))}
               </ul>
             </Reveal>
